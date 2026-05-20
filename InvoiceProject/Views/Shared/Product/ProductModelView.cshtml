@@ -1,0 +1,40 @@
+﻿
+
+<!-- Modal -->
+<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalLabel">Product Form</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label>Product Id</label>
+                    <input type="text" id="txtproduct_id" class="form-control" disabled />
+                </div>
+                <div class="mb-3">
+                    <label>Product Name</label>
+                    <input type="text" id="txtproduct_name" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label>Rate</label>
+                    <input type="text" id="txtrate" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label>Gst</label>
+                    <input type="text" id="txtgst" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label>Stock Quantity</label>
+                    <input type="text" id="txtstock" class="form-control" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="button" value="Submit" id="btnsubmit" class="btn btn-primary" onclick="SubmitData()" />
+                <input type="button" value="Update" id="btnupdate" class="btn btn-info" onclick="UpdateData()" />
+                <input type="button" value="Cancle" class="btn btn-danger" onclick="ClearData()" />
+            </div>
+        </div>
+    </div>
+</div>

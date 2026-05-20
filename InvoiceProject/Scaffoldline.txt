@@ -1,0 +1,2 @@
+Scaffold-Dbcontext "Server=YASH; Database=apis; Trusted_Connection=True; TrustServerCertificate=True" Microsoft.EntityFrameworkCore.Sqlserver -OutputDir Models 
+-Tables TblCustomers,TblProducts,Tblinvoice_details,Tblinvoice_products,Tblinvoice_payments -force

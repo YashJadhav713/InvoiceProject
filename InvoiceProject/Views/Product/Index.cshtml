@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/InvoiceLayoutMain.cshtml";
+}
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<div class="container-fluid">
+    <div class="mb-3">
+        @Html.Partial("~/Views/Shared/Product/ProductModelView.cshtml")
+    </div>
+    @Html.Partial("~/Views/Shared/Product/ProductPartialView.cshtml")
+</div>
+
+
+<script src="~/scripts/ProductOperations.js"></script>

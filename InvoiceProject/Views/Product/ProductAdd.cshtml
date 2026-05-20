@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewData["Title"] = "ProductAdd";
+    Layout = "~/Views/Shared/InvoiceLayoutMain.cshtml";
+    List<TblProduct> lst = (List<TblProduct>)ViewData["product"];
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"> Add Product</h3>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="mt-2">
+                            <label>Product Name</label>
+                            <input type="text" id="pname" class="form-control" />
+
+                        </div>
+                        <div class="mt-2">
+                            <label>Rate</label>
+                            <input type="text" id="prate" class="form-control" />
+                        </div>
+                        <div class="mt-2">
+                            <label>Gst</label>
+                            <input type="text" id="pgst" class="form-control" />
+                        </div>
+                        <div class="mt-2">
+                            <label>Stock Quantity</label>
+                            <input type="text" id="psqty" class="form-control" />
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <input type="button" value="Add Product" class="btn btn-dark" onclick="AddProduct()" />
+                        <input type="reset" value="Cancle" class="btn btn-danger" />
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-md-7">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Product Id</th>
+                        <th>Product Name</th>
+                        <th>Rate</th>
+                        <th>Gst</th>
+                        <th>StockQuantity</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in lst)
+                    {
+                        <tr>
+                            <td>@item.ProductId</td>
+                            <td>@item.ProductName</td>
+                            <td>@item.Rate</td>
+                            <td>@item.Gst</td>
+                            <td>@item.Stock</td>
+                            <td class="d-flex">
+                                <a href="/Course/Update/@item.ProductId" class="btn btn-info btn-sm">Update</a>&nbsp;
+                                <a href="/Course/Delete/@item.ProductId" class="btn btn-danger btn-sm">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    const AddProduct=async()=>
+    {
+         var pt=
+         {
+             "ProductName":document.getElementById("pname").value,
+             "Rate":document.getElementById("prate").value,
+             "Gst":document.getElementById("pgst").value,
+             "StockQuantity":document.getElementById("psqty").value
+         };
+         const response=await fetch("Product/GetProduct",{
+
+             method:"post",
+             body:JSON.stringify(pt),
+             headers:{
+                 "content-type":"application/json"
+             }
+         });
+         const msg=await response.text();
+         alert(msg);
+         window.location.reload();
+
+    }
+
+</script>
+
