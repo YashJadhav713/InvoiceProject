@@ -16,8 +16,8 @@
                     <td>${d.rate}</td>
                     <td>${d.gst}</td>
                     <td>${d.stock}</td>
-                    <td><input type='button'id="exampleModal" value='view' class='btn btn-info' onclick='ViewProduct (${d.productId})'/></td>
-                    <td><input type='button'id="exampleModal" value='delete' class='btn btn-danger' onclick='DeleteProduct (${d.productId})'/></td>
+                    <td><input type='button'id="Product" value='view' class='btn btn-info' onclick='ViewProduct (${d.productId})'/></td>
+                    <td><input type='button'id="Product" value='delete' class='btn btn-danger' onclick='DeleteProduct (${d.productId})'/></td>
                 </tr>
             `;
     });
@@ -49,7 +49,7 @@ const SubmitData = async () => {
     const msg = await response.text();
     alert(msg);
     ClearData();
-    $("Modal").model("hide");
+    $("#Product").modal("hide");
     FetchProducts();
 }
 
@@ -68,7 +68,7 @@ const ViewProduct = async (id) => {
     document.getElementById("btnupdate")
         .removeAttribute("hidden");
 
-    $("#Modal").modal("show");
+    $("#Product").modal("show");
 }
 
 const UpdateData = async () => {
@@ -94,7 +94,7 @@ const UpdateData = async () => {
     const msg = await response.text();
     alert(msg);
     ClearData();
-    $("#Modal").model("hide");
+    $("#Product").modal("hide");
     FetchProducts();
 }
 

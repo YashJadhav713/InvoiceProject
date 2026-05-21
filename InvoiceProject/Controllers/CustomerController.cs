@@ -1,82 +1,132 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using InvoiceProject.Models;
 
-
 namespace InvoiceProject.Controllers
 {
     public class CustomerController : Controller
     {
         ApisContext db;
+
         public CustomerController()
         {
             db = new ApisContext();
         }
-        public IActionResult CustomerAdd()
+
+        public IActionResult Index()
         {
-            ViewData["Customer"] = db.TblCustomers.ToList();
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult CustomerAdd(Customer tc)
+        // GET ALL CUSTOMERS
+        [HttpGet]
+        public JsonResult GetCustomers()
         {
-            if (!ModelState.IsValid)
+            List<TblCustomer> lst = new List<TblCustomer>();
+
+            foreach (TblCustomer c in db.TblCustomers.ToList())
             {
-                ViewData["Customer"] = db.TblCustomers.ToList();
-                return View();
-            }
-            else
-            {
-                TblCustomer c = new TblCustomer
+                TblCustomer cu = new TblCustomer()
                 {
-                    CustomerName = tc.CustomerName,
-                    Email = tc.Email,
-                    Mobile = tc.Mobile,
-                    City = tc.City
+                    CustomerId = c.CustomerId,
+                    CustomerName = c.CustomerName,
+                    Mobile = c.Mobile,
+                    City = c.City,
+                    Email = c.Email
                 };
-                db.TblCustomers.Add(c);
-                db.SaveChanges();
-                ModelState.Clear();
-                ViewBag.cmsg = "Added Successfully";
-                ViewData["Customer"] = db.TblCustomers.ToList();
-                return View();
+
+                lst.Add(cu);
             }
-        }
-        public IActionResult Update(int id)
-        {
-            TblCustomer tc = db.TblCustomers.Find(id);
-            if (tc == null)
-            {
-                return NotFound();
-            }
-            return View(tc);
+
+            return Json(lst);
         }
 
+        // ADD CUSTOMER
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Update(TblCustomer tc)
+        public string AddCustomer([FromBody] TblCustomer c)
         {
-            if (ModelState.IsValid)
+            if (c == null)
             {
-                db.TblCustomers.Update(tc);
-                db.SaveChanges();
-                return RedirectToAction("CustomerAdd");
+                return "Invalid Customer Data";
             }
 
-            return View(tc);
+            TblCustomer cu = new TblCustomer()
+            {
+                CustomerName = c.CustomerName,
+                Mobile = c.Mobile,
+                City = c.City,
+                Email = c.Email
+            };
+
+            db.TblCustomers.Add(cu);
+
+            db.SaveChanges();
+
+            return "Customer Added Successfully";
         }
 
-        public IActionResult Delete(int id)
+        // GET SINGLE CUSTOMER
+        [HttpGet]
+        public JsonResult GetCustomer(int id)
         {
-            TblCustomer tc = db.TblCustomers.Find(id);
-            if (true)
+            TblCustomer c = db.TblCustomers.Find(id);
+
+            // NULL CHECK
+            if (c == null)
             {
-                db.TblCustomers.Remove(tc);
-                db.SaveChanges();
-                return RedirectToAction("CustomerAdd");
+                return Json("Customer Not Found");
             }
-            return NotFound();
+
+            TblCustomer cu = new TblCustomer()
+            {
+                CustomerId = c.CustomerId,
+                CustomerName = c.CustomerName,
+                Mobile = c.Mobile,
+                City = c.City,
+                Email = c.Email
+            };
+
+            return Json(cu);
+        }
+
+        // UPDATE CUSTOMER
+        [HttpPost]
+        public string UpdateCustomer([FromBody] TblCustomer c)
+        {
+            TblCustomer cu = db.TblCustomers.Find(c.CustomerId);
+
+            // NULL CHECK
+            if (cu == null)
+            {
+                return "Customer Not Found";
+            }
+
+            cu.CustomerName = c.CustomerName;
+            cu.Mobile = c.Mobile;
+            cu.City = c.City;
+            cu.Email = c.Email;
+
+            db.SaveChanges();
+
+            return "Customer Updated Successfully";
+        }
+
+        // DELETE CUSTOMER
+        [HttpPost]
+        public string DeleteCustomer(int id)
+        {
+            TblCustomer c = db.TblCustomers.Find(id);
+
+            // NULL CHECK
+            if (c == null)
+            {
+                return "Customer Not Found";
+            }
+
+            db.TblCustomers.Remove(c);
+
+            db.SaveChanges();
+
+            return "Customer Deleted Successfully";
         }
     }
 }

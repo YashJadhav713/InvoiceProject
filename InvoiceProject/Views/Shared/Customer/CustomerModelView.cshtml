@@ -1,0 +1,56 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<div class="modal fade" id="Customer" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalLabel">Product Form</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="mb-3">
+                    <label>Customer Id</label>
+                    <input type="text" id="txtCustomer_id" class="form-control" disabled />
+                </div>
+
+                <div class="mb-3">
+                    <label>Customer Name</label>
+                    <input type="text" id="txtCustomer_name" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input type="text" id="txtEmail" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label>Mobile Number</label>
+                    <input type="text" id="txtMobile" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label>City</label>
+                    <input type="text" id="txtCity" class="form-control" />
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <input type="button" value="Submit" id="btnsubmit" class="btn btn-primary" onclick="SubmitData()" />
+                <input type="button" value="Update" id="btnupdate" class="btn btn-info" onclick="UpdateData()" />
+                <input type="button" value="Cancel" class="btn btn-danger" onclick="ClearData()" />
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+

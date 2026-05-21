@@ -10,7 +10,15 @@
             <label>Customer</label>
         </td>
         <td>
-            @Html.DropDownList("ddcustomer", ViewBag.customers as SelectList, "Select Customer", new { @class = "form-control" })
+            @Html.DropDownList(
+            "ddcustomer",
+                        ViewBag.customers as SelectList,
+                        "Select Customer",
+                        new
+                        {
+                            @class = "form-control",
+                            @onchange = "FetchCustomer()"
+                        })
         </td>
         <td style="text-align:right">
             <label>Invoice Date</label>
@@ -104,62 +112,5 @@
         </table>
     </div>
 </div>
-<script>
-    var product[];
-    var rate,gst;
-    var pname="";
-    const FetchProduct=async()=>
-    {
-        var pid=document.getElementById("ddproduct").value;
 
-        const response = await fetch("/Product/GetProduct/"+pid);
-        const p = await response.json();
-
-        pname = p.productName;
-        document.getElementById("txtrate").value = p.rate;
-        document.getElementById("txtgst").value = p.gst;
-        document.getElementById("txtstock").value = p.stock;
-        rate = p.rate;
-        gst = p.gst;
-    }
-    const Total = async()=>
-    {
-        var qty=document.getElementById("txtquantity").value;
-        var t=(Number(rate)*Number(qty)*Number(gst))/100+Number(rate)*Number(qty)
-        document.getElementById("txttotal").value=t;
-    }
-    const AddProduct = async()=>
-    {
-        var pid=document.getElementById("ddproduct").value;
-        var prate=document.getElementById("txtrate").value;
-        var pgst=document.getElementById("txtgst").value;
-        var qty=document.getElementById("txtquantity").value;
-        var t=document.getElementById("txttotal").value;
-        var pr={"Product":pid,"ProductName":pname,"Rate":prate,"Gst":pgst,"Quantity":qty,"Total":t};
-        product.push(pr);
-        clearData();
-        DisplayTable();
-    }
-    const DisplayTable=()=>
-    {
-        var data="";
-        var final=0;
-        product.foreach(function(d,k)
-        {
-            final=number(final)+Number(d.Total);
-            data+="<tr><td>"+(k+1)+"</td><td>"+d.ProductName+"</td><td>"+d.Rate+"</td><td>"+d.Gst+"</td><td>"+d.Quantity+"</td><td>"+d.Total+"</td></tr>";
-        });
-        document.getElementById("tbldata").innerHTML=data;
-        document.getElementById("finaltotal").innerHTML=final;
-    }
-
-    ClearData=()=>
-    {
-        var pname=document.getElementById("ddproduct").value="";
-        var prate=document.getElementById("txtrate").value="";
-        var pgst=document.getElementById("txtgst").value="";
-        var psqty=document.getElementById("txtstock").value="";
-        var t=document.getElementById("txttotal").value="";
-        var qty =document.getElementById("txtquantity").value="";
-    }
-</script>
+<script src="~/scripts/InvoiceOperations.js"></script>

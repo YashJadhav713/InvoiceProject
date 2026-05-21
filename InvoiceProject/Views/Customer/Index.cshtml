@@ -4,15 +4,13 @@
     Layout = "~/Views/Shared/InvoiceLayoutMain.cshtml";
 }
 
-
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
 <div class="container-fluid">
     <div class="mb-3">
-        @Html.Partial("~/Views/Shared/Product/ProductModelView.cshtml")
+        @Html.Partial("~/Views/Shared/Customer/CustomerModelView.cshtml")
     </div>
-    @Html.Partial("~/Views/Shared/Product/ProductPartialView.cshtml")
+    @Html.Partial("~/Views/Shared/Customer/CustomerPartialView.cshtml")
 </div>
 
-
-<script src="~/scripts/ProductOperations.js"></script>
+<script src="~/scripts/CustomerOperations.js"></script>
