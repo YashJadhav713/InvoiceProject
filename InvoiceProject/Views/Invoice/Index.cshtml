@@ -3,7 +3,128 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/InvoiceLayoutMain.cshtml";
 }
+<style>
+    /* Main Container */
+    .invoice-container {
+        width: 100%;
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+    }
 
+    /* Responsive Tables */
+    .table {
+        width: 100%;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+        .table th,
+        .table td {
+            vertical-align: middle;
+            padding: 12px;
+        }
+
+    /* Inputs */
+    .form-control {
+        border-radius: 10px;
+        min-height: 42px;
+    }
+
+    /* Button */
+    #btnadd {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        font-size: 22px;
+        padding: 0;
+    }
+
+    /* Mobile Responsive */
+    @@media (max-width: 992px) {
+
+        .table-borderless tr {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .table-borderless td {
+            width: 100%;
+            display: block;
+            text-align: left !important;
+        }
+
+        .table-borderless input,
+        .table-borderless select {
+            width: 100% !important;
+        }
+
+        #btnadd {
+            width: 100%;
+            border-radius: 10px;
+            height: 45px;
+        }
+    }
+
+    /* Small Devices */
+    @@media (max-width: 768px) {
+
+        .invoice-container {
+            padding: 10px;
+        }
+
+        h5 {
+            font-size: 16px;
+        }
+
+        .table {
+            font-size: 14px;
+        }
+
+            .table thead {
+                display: none;
+            }
+
+            .table tbody tr {
+                display: block;
+                margin-bottom: 15px;
+                border-radius: 12px;
+                overflow: hidden;
+                background: rgba(255,255,255,0.08);
+                backdrop-filter: blur(10px);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+
+            .table tbody td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                text-align: right;
+                padding: 12px;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+
+                .table tbody td::before {
+                    content: attr(data-label);
+                    font-weight: bold;
+                    color: #0d6efd;
+                    text-align: left;
+                }
+
+            .table tfoot td {
+                display: block;
+                text-align: center !important;
+            }
+
+        input[type="button"] {
+            width: 100%;
+            margin-top: 10px;
+        }
+    }
+</style>
+
+<div class="container invoice-container">
 <table class="table table-borderless">
     <tr>
         <td style="text-align:right">
@@ -19,13 +140,12 @@
                             @class = "form-control",
                             @onchange = "FetchCustomer()"
                         })
-        </td>
+                        </td>
         <td style="text-align:right">
             <label>Invoice Date</label>
         </td>
         <td>
             <input type="date" id="txtdate" class="form-control" />
-
         </td>
     </tr>
 </table>
@@ -63,7 +183,7 @@
 
     </tr>
 </table>
-<table class="table table-bordered">
+<table class="table table-primary table-hover table-bordered">
     <thead>
         <tr>
             <th>Sr No</th>
@@ -84,33 +204,133 @@
 </table>
 <input type="button" value="Submit" onclick="SubmitInvoice()" class="btn btn-primary" />
 
-<div class="mt-5">
-    <div class="">
-        <h5 id="cname">Customer Name :</h5>
-        <h5 id="idate">Invoice Date :</h5>
+    <div class="mt-5">
+
+        <div class="customer">
+
+            <h5 id="cname">Customer Name :</h5>
+
+            <h5 id="idate">Invoice Date :</h5>
+
+        </div>
+
+        <div class="col-md-12">
+
+            <table class="table table-primary table-hover table-bordered">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Sr No</th>
+                        <th>Product Name</th>
+                        <th>Rate</th>
+                        <th>GST</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="invoicebody">
+                </tbody>
+
+                <tfoot>
+
+                    <tr>
+
+                        <td colspan="5">
+                            Grand Total:
+                        </td>
+
+                        <td id="invoicefinaltotal"></td>
+
+                    </tr>
+
+                </tfoot>
+
+            </table>
+
+        </div>
+
     </div>
-    <div class="col-md-12">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Sr No</th>
-                    <th>Product Name</th>
-                    <th>Rate</th>
-                    <th>Gst</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody id="tbldata">
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="5" style="margin-right:10px">Grand Total:</td>
-                    <td id="finaltotal"></td>
-                </tr>
-            </tfoot>
-        </table>
+    <div class="mt-4">
+
+        <label>Select Payment Method</label>
+
+        <select id="paymentmode"
+                class="form-control"
+                onchange="PaymentMode()">
+
+            <option value="">Select Payment</option>
+
+            <option value="online">Online</option>
+
+            <option value="offline">Cash / Offline</option>
+
+        </select>
+
     </div>
-</div>
+
+    <br />
+
+    <div id="qrcodebox" style="display:none">
+
+        <h4>Scan QR Code</h4>
+
+        <img id="qrimage" />
+
+    </div>
+
+    <br />
+
+    @* <div id="printsection" style="display:none">
+
+        <button class="btn btn-success"
+                onclick="window.print()">
+
+            Print Invoice
+
+        </button>
+
+    </div> *@
+    <button class="btn btn-primary"
+            onclick="DownloadInvoice()">
+
+        Download Invoice
+
+    </button>
+
+    <script>
+                // PAYMENT MODE
+        const PaymentMode = () => {
+
+            var mode =
+                document.getElementById("paymentmode").value;
+
+            if (mode == "online") {
+
+                document.getElementById(
+                    "qrcodebox"
+                ).style.display = "block";
+
+                document.getElementById(
+                    "printsection"
+                ).style.display = "none";
+            }
+
+            else if (mode == "offline") {
+
+                document.getElementById(
+                    "qrcodebox"
+                ).style.display = "none";
+
+                document.getElementById(
+                    "printsection"
+                ).style.display = "block";
+            }
+        }
+    </script>
 
 <script src="~/scripts/InvoiceOperations.js"></script>

@@ -1,17 +1,54 @@
-﻿<table class="table table-primary table-hover table-bordered">
-    <thead >
-        <tr>
-            <th>Sr No</th>
-            <th>Product Name</th>
-            <th>Rate</th>
-            <th>Gst</th>
-            <th>Stock</th>
-            <th>View</th>
-            <th>Delete</th>
-        </tr>
-    </thead>
-    <tbody id="tbldata"></tbody>
-</table>
+﻿<style>
+    /* Horizontal Scroll for Table */
+    .table-responsive-custom {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 12px;
+    }
+
+        .table-responsive-custom table {
+            min-width: 900px;
+        }
+
+        /* Custom Scrollbar */
+        .table-responsive-custom::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-responsive-custom::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .table-responsive-custom::-webkit-scrollbar-thumb {
+            background: #0d6efd;
+            border-radius: 10px;
+        }
+
+            .table-responsive-custom::-webkit-scrollbar-thumb:hover {
+                background: #0b5ed7;
+            }
+</style>
+<div class="table-responsive-custom">
+    <table class="table custom-table table-hover table-bordered">
+        <table class="table table-primary table-hover table-bordered overflow-scroll">
+            <thead>
+                <tr>
+                    <th>Sr No</th>
+                    <th>Product Name</th>
+                    <th>Rate</th>
+                    <th>Gst</th>
+                    <th>Stock</th>
+                    <th>View</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="tbldata"></tbody>
+        </table>
+    </table>
+</div>
+
 
 
 

@@ -1,6 +1,105 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
+<style>
+    /* Modal Background */
+    .modal-content {
+        border: none;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Header */
+    .modal-header {
+        background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+        color: white;
+        border-bottom: none;
+        padding: 18px 24px;
+    }
+
+    .modal-title {
+        font-weight: 600;
+        font-size: 24px;
+    }
+
+    .btn-close {
+        filter: brightness(0) invert(1);
+    }
+
+    /* Body */
+    .modal-body {
+        padding: 25px;
+        background-color: #f8f9fa;
+    }
+
+    .modal-body label {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 6px;
+        display: block;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        border: 1px solid #ced4da;
+        padding: 10px 14px;
+        transition: all 0.3s ease;
+        box-shadow: none;
+    }
+
+    .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 8px rgba(13, 110, 253, 0.25);
+    }
+
+    .form-control:disabled {
+        background-color: #e9ecef;
+        font-weight: 600;
+    }
+
+    /* Footer */
+    .modal-footer {
+        border-top: none;
+        padding: 18px 24px;
+        background-color: #ffffff;
+    }
+
+    .modal-footer .btn {
+        border-radius: 10px;
+        padding: 8px 18px;
+        font-weight: 600;
+        min-width: 100px;
+        transition: 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #0b5ed7;
+    }
+
+    .btn-info {
+        color: white;
+    }
+
+    .btn-info:hover {
+        background-color: #0aa2c0;
+    }
+
+    .btn-danger:hover {
+        background-color: #bb2d3b;
+    }
+
+    /* Animation */
+    .modal.fade .modal-dialog {
+        transform: translateY(-20px);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .modal.show .modal-dialog {
+        transform: translateY(0);
+    }
+</style>
 
 <div class="modal fade" id="Customer" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
 

@@ -120,3 +120,121 @@ const ClearData = () => {
     document.getElementById("txtquantity").value = "";
     document.getElementById("txttotal").value = "";
 }
+
+// SUBMIT INVOICE
+const SubmitInvoice = () => {
+
+    // CUSTOMER NAME
+    var customer =
+        document.getElementById("ddcustomer");
+
+    var customerName =
+        customer.options[customer.selectedIndex].text;
+
+    // DATE
+    var invoiceDate =
+        document.getElementById("txtdate").value;
+
+    // SHOW CUSTOMER NAME
+    document.getElementById("cname").innerHTML =
+        "Customer Name : " + customerName;
+
+    // SHOW DATE
+    document.getElementById("idate").innerHTML =
+        "Invoice Date : " + invoiceDate;
+
+    // TABLE DATA
+    var data = "";
+
+    var grandTotal = 0;
+
+    product.forEach(function (d, k) {
+
+        grandTotal =
+            Number(grandTotal) + Number(d.Total);
+
+        data += `
+            <tr>
+                <td>${k + 1}</td>
+                <td>${d.ProductName}</td>
+                <td>${d.Rate}</td>
+                <td>${d.Gst}</td>
+                <td>${d.Quantity}</td>
+                <td>${d.Total}</td>
+            </tr>
+        `;
+    });
+
+    // SHOW DATA IN FINAL TABLE
+    document.getElementById("invoicebody").innerHTML = data;
+
+    // SHOW TOTAL
+    document.getElementById("invoicefinaltotal").innerHTML =
+        grandTotal;
+
+    // CREATE QR CODE
+    var qr =
+        "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=Total Amount ₹"
+        + grandTotal;
+
+    document.getElementById("qrimage").src = qr;
+}
+
+// DOWNLOAD LAST INVOICE PAGE
+const DownloadInvoice = () => {
+
+    var printContents =
+        document.querySelector(".mt-5").innerHTML;
+
+    var originalContents =
+        document.body.innerHTML;
+
+    document.body.innerHTML = `
+        <html>
+
+        <head>
+
+            <title>Invoice</title>
+
+            <style>
+
+                body{
+                    font-family:Arial;
+                    padding:20px;
+                }
+
+                table{
+                    width:100%;
+                    border-collapse:collapse;
+                }
+
+                table,th,td{
+                    border:1px solid black;
+                    padding:20px;
+                    text-align:center;
+                }
+
+                h5{
+                    margin:10px 0;
+                }
+
+            </style>
+
+        </head>
+
+        <body>
+
+            ${printContents}
+
+        </body>
+
+        </html>
+    `;
+
+    window.print();
+
+    document.body.innerHTML =
+        originalContents;
+
+    location.reload();
+}
