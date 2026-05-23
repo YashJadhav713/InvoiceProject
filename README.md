@@ -107,14 +107,11 @@ https://localhost:5001
 ---
 
 ## 📸 Screenshots
+---
+invoice Page
 
-Add screenshots of your application here.
+<img width="1898" height="930" alt="image" src="https://github.com/user-attachments/assets/6daa8629-20db-42dd-b907-df1deb6cbfab" />
 
-Example:
-
-```md
-![Dashboard Screenshot](screenshots/dashboard.png)
-```
 
 ---
 
